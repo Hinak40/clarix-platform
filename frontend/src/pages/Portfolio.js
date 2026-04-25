@@ -33,8 +33,7 @@ function Portfolio() {
 
   return (
     <div>
-      <Navbar />
-      <section style={styles.hero}>
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <section style={styles.hero}>
         <span style={styles.tag}>OUR WORK</span>
         <h1 style={styles.heroTitle}>Our Portfolio</h1>
         <p style={styles.heroSubtitle}>Projects we have built for clients worldwide</p>

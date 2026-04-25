@@ -32,8 +32,7 @@ function About({ darkMode }) {
 
   return (
     <div style={{ backgroundColor: bg }}>
-      <Navbar />
-
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       {/* Hero */}
       <section style={styles.hero}>
         <span style={styles.tag}>ABOUT US</span>

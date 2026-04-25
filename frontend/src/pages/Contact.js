@@ -30,8 +30,7 @@ function Contact() {
 
   return (
     <div>
-      <Navbar />
-      <section style={styles.hero}>
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <section style={styles.hero}>
         <span style={styles.tag}>CONTACT US</span>
         <h1 style={styles.heroTitle}>Get In Touch</h1>
         <p style={styles.heroSubtitle}>Have a project in mind? We'd love to hear about it.</p>

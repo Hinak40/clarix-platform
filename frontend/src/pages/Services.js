@@ -40,8 +40,7 @@ function Services() {
 
   return (
     <div>
-      <Navbar />
-
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       {/* Hero */}
       <section style={styles.hero}>
         <span style={styles.tag}>WHAT WE OFFER</span>

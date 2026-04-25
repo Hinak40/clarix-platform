@@ -147,8 +147,7 @@ Why choose React Native:
 
   if (loading) return (
     <div style={{ backgroundColor: bg, minHeight: '100vh' }}>
-      <Navbar />
-      <div style={styles.loadingPage}>
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <div style={styles.loadingPage}>
         <div style={styles.spinner} />
         <p style={{ color: '#64748b' }}>Loading article...</p>
       </div>

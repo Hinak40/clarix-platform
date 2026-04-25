@@ -36,8 +36,7 @@ function Blog() {
 
   return (
     <div>
-      <Navbar />
-      <section style={styles.hero}>
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <section style={styles.hero}>
         <span style={styles.tag}>OUR BLOG</span>
         <h1 style={styles.heroTitle}>Insights & Updates</h1>
         <p style={styles.heroSubtitle}>Knowledge and insights from our team of experts</p>

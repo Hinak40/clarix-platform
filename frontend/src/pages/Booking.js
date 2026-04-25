@@ -32,8 +32,7 @@ function Booking() {
 
   return (
     <div>
-      <Navbar />
-      <section style={styles.hero}>
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <section style={styles.hero}>
         <span style={styles.tag}>BOOK A MEETING</span>
         <h1 style={styles.heroTitle}>Schedule a Free Call</h1>
         <p style={styles.heroSubtitle}>Let's discuss your project and how we can help you achieve your goals.</p>

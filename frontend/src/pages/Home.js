@@ -42,8 +42,7 @@ function Home({ darkMode }) {
 
   return (
     <div style={{ backgroundColor: bg }}>
-      <Navbar />
-
+<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
       {/* Hero Slider */}
       <section style={{ ...styles.hero, backgroundImage: `url(${slides[currentSlide].url})` }}>
         <div style={styles.heroOverlay}>
