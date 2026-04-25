@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-
-// Pages
 import Home from './pages/Home';
 import About from './pages/About';
 import Services from './pages/Services';
@@ -10,8 +8,6 @@ import Blog from './pages/Blog';
 import BlogDetail from './pages/BlogDetail';
 import Contact from './pages/Contact';
 import Booking from './pages/Booking';
-
-// Admin
 import AdminLogin from './admin/AdminLogin';
 import Dashboard from './admin/Dashboard';
 import ManageServices from './admin/ManageServices';
@@ -29,15 +25,9 @@ function App() {
 
   return (
     <Router>
-      {/* Dark/Light Toggle Button */}
-      <button
-        className="theme-toggle"
-        onClick={() => setDarkMode(!darkMode)}
-        title="Toggle Theme"
-      >
+      <button className="theme-toggle" onClick={() => setDarkMode(!darkMode)} title="Toggle Theme">
         {darkMode ? '☀️' : '🌙'}
       </button>
-
       <Routes>
         <Route path="/" element={<Home darkMode={darkMode} />} />
         <Route path="/about" element={<About darkMode={darkMode} />} />
@@ -59,4 +49,4 @@ function App() {
   );
 }
 
-export default App;cd
+export default App;
