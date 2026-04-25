@@ -9,8 +9,12 @@ router.post('/login', login);
 router.get('/setup', async (req, res) => {
   try {
     await Admin.deleteMany({});
-    const hash = await bcrypt.hash('800462hina', 10);
-    await Admin.create({ name: 'Admin', email: 'admin@clarix.com', password: hash });
+    const hash = await bcrypt.hash(process.env.ADMIN_PASSWORD || 'admin123', 10);
+    await Admin.create({ 
+      name: 'Admin', 
+      email: process.env.ADMIN_EMAIL || 'admin@clarix.com', 
+      password: hash 
+    });
     res.json({ message: 'Admin created successfully!' });
   } catch (error) {
     res.status(500).json({ message: error.message });
