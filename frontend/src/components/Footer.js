@@ -45,7 +45,7 @@ function Footer() {
 
       <div style={styles.bottom}>
         <p style={styles.copyright}>© 2026 Clarix. All rights reserved.</p>
-        <p style={styles.copyright}>Built with ❤️ by Clarix Team</p>
+        <p style={styles.copyright}>Built with Hina Jehanzeb</p>
       </div>
     </footer>
   );
