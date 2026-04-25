@@ -169,7 +169,7 @@ function Home({ darkMode }) {
           {[
             { name: 'Hina Jehanzeb', role: 'CEO, TechStart', text: 'Clarix delivered our project on time with exceptional quality. Highly recommended!', avatar: 'A' },
             { name: 'Alishba Rehman', role: 'Founder, StyleHub', text: 'Amazing team! They transformed our vision into a beautiful digital product.', avatar: 'S' },
-            { name: 'Abbas Hanif', role: 'CTO, DataFlow', text: 'Professional, skilled, and reliable. Best agency we have worked with.', avatar: 'U' }
+            { name: 'Wasil khan', role: 'CTO, DataFlow', text: 'Professional, skilled, and reliable. Best agency we have worked with.', avatar: 'U' }
           ].map((t, i) => (
             <div key={i} style={{ ...styles.testimonialCard, backgroundColor: cardBg, border: `1px solid ${border}` }}>
               <p style={{ ...styles.testimonialText, color: textColor }}>"{t.text}"</p>
