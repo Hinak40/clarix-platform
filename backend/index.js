@@ -1,31 +1,39 @@
-﻿const express = require('express');
-const cors = require('cors');
-require('dotenv').config();
-const connectDB = require('./config/db');
+﻿import axios from 'axios';
 
-const app = express();
-
-// Connect Database
-connectDB();
-
-// Middleware
-app.use(cors());
-app.use(express.json());
-
-// Routes
-app.use('/api/auth', require('./routes/auth'));
-app.use('/api/services', require('./routes/services'));
-app.use('/api/portfolio', require('./routes/portfolio'));
-app.use('/api/blogs', require('./routes/blogs'));
-app.use('/api/inquiries', require('./routes/inquiries'));
-app.use('/api/meetings', require('./routes/meetings'));
-
-// Test route
-app.get('/', (req, res) => {
-  res.json({ message: 'Clarix Backend is running!' });
+const API = axios.create({
+  baseURL: 'https://clarix-platform.onrender.com/api'
 });
 
-const PORT = process.env.PORT || 5000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+API.interceptors.request.use((req) => {
+  const token = localStorage.getItem('token');
+  if (token) {
+    req.headers.Authorization = `Bearer ${token}`;
+  }
+  return req;
 });
+
+export const getServices = () => API.get('/services');
+export const createService = (data) => API.post('/services', data);
+export const updateService = (id, data) => API.put(`/services/${id}`, data);
+export const deleteService = (id) => API.delete(`/services/${id}`);
+
+export const getPortfolio = () => API.get('/portfolio');
+export const createPortfolio = (data) => API.post('/portfolio', data);
+export const updatePortfolio = (id, data) => API.put(`/portfolio/${id}`, data);
+export const deletePortfolio = (id) => API.delete(`/portfolio/${id}`);
+
+export const getBlogs = () => API.get('/blogs');
+export const getBlog = (id) => API.get(`/blogs/${id}`);
+export const createBlog = (data) => API.post('/blogs', data);
+export const updateBlog = (id, data) => API.put(`/blogs/${id}`, data);
+export const deleteBlog = (id) => API.delete(`/blogs/${id}`);
+
+export const sendInquiry = (data) => API.post('/inquiries', data);
+export const getInquiries = () => API.get('/inquiries');
+
+export const bookMeeting = (data) => API.post('/meetings', data);
+export const getMeetings = () => API.get('/meetings');
+
+export const loginAdmin = (data) => API.post('/auth/login', data);
+
+export default API;
