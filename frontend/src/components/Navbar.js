@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
-function Navbar() {
+function Navbar({ darkMode, setDarkMode }) {
   const [scrolled, setScrolled] = useState(false);
   const location = useLocation();
 
@@ -21,7 +21,12 @@ function Navbar() {
   ];
 
   return (
-    <nav style={{ ...styles.nav, backgroundColor: scrolled ? 'rgba(8,12,20,0.97)' : 'rgba(8,12,20,0.85)', backdropFilter: 'blur(20px)', boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none' }}>
+    <nav style={{ 
+      ...styles.nav, 
+      backgroundColor: scrolled ? 'rgba(8,12,20,0.97)' : 'rgba(8,12,20,0.85)', 
+      backdropFilter: 'blur(20px)', 
+      boxShadow: scrolled ? '0 4px 30px rgba(0,0,0,0.5)' : 'none' 
+    }}>
       <Link to="/" style={styles.logo}>
         <span style={styles.logoIcon}>◆</span> Clarix
       </Link>
@@ -41,9 +46,20 @@ function Navbar() {
           </Link>
         ))}
       </div>
-      <Link to="/booking" style={styles.bookBtn}>
-        Book Meeting →
-      </Link>
+      <div style={styles.rightSection}>
+        {setDarkMode && (
+          <button 
+            onClick={() => setDarkMode(!darkMode)} 
+            style={styles.themeToggle}
+            title="Toggle Theme"
+          >
+            {darkMode ? '☀️' : '🌙'}
+          </button>
+        )}
+        <Link to="/booking" style={styles.bookBtn}>
+          Book Meeting →
+        </Link>
+      </div>
     </nav>
   );
 }
@@ -70,15 +86,8 @@ const styles = {
     gap: '8px',
     letterSpacing: '-0.5px'
   },
-  logoIcon: {
-    color: '#6366f1',
-    fontSize: '16px'
-  },
-  links: {
-    display: 'flex',
-    gap: '35px',
-    alignItems: 'center'
-  },
+  logoIcon: { color: '#6366f1', fontSize: '16px' },
+  links: { display: 'flex', gap: '35px', alignItems: 'center' },
   link: {
     textDecoration: 'none',
     fontSize: '15px',
@@ -96,6 +105,24 @@ const styles = {
     borderRadius: '50%',
     backgroundColor: '#6366f1',
     display: 'block'
+  },
+  rightSection: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '12px'
+  },
+  themeToggle: {
+    width: '36px',
+    height: '36px',
+    borderRadius: '8px',
+    backgroundColor: 'rgba(99,102,241,0.15)',
+    border: '1px solid rgba(99,102,241,0.3)',
+    fontSize: '16px',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer',
+    transition: 'all 0.3s ease'
   },
   bookBtn: {
     background: 'linear-gradient(135deg, #6366f1, #4f46e5)',
