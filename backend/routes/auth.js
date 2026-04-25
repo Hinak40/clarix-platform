@@ -8,8 +8,7 @@ router.post('/login', login);
 
 router.get('/setup', async (req, res) => {
   try {
-    const existing = await Admin.findOne({ email: 'admin@clarix.com' });
-    if (existing) return res.json({ message: 'Admin already exists!' });
+    await Admin.deleteMany({});
     const hash = await bcrypt.hash('admin123', 10);
     await Admin.create({ name: 'Admin', email: 'admin@clarix.com', password: hash });
     res.json({ message: 'Admin created successfully!' });
