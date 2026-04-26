@@ -1,13 +1,20 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import ImageSlider from '../components/ImageSlider';
 import { sendInquiry } from '../api/index';
 
-function Contact() {
+function Contact({ darkMode, setDarkMode }) {
   const [form, setForm] = useState({ name: '', email: '', phone: '', message: '' });
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   const slides = [
     { url: 'https://images.unsplash.com/photo-1423666639041-f56000c27a9a?w=1600', title: 'Get In Touch', subtitle: 'We would love to hear from you' },
@@ -28,97 +35,87 @@ function Contact() {
     setLoading(false);
   };
 
+  const bg = darkMode ? '#080c14' : '#f8fafc';
+  const cardBg = darkMode ? '#0f172a' : 'white';
+  const titleColor = darkMode ? 'white' : '#0f172a';
+  const textColor = darkMode ? '#64748b' : '#475569';
+  const border = darkMode ? 'rgba(255,255,255,0.06)' : 'rgba(0,0,0,0.08)';
+  const inputBg = darkMode ? '#080c14' : '#f8fafc';
+
   return (
-    <div>
-<Navbar darkMode={darkMode} setDarkMode={setDarkMode} />      <section style={styles.hero}>
+    <div style={{ backgroundColor: bg }}>
+      <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
+
+      <section style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: isMobile ? '80px 20px 60px' : '120px 80px 80px', textAlign: 'center' }}>
         <span style={styles.tag}>CONTACT US</span>
-        <h1 style={styles.heroTitle}>Get In Touch</h1>
-        <p style={styles.heroSubtitle}>Have a project in mind? We'd love to hear about it.</p>
+        <h1 style={{ fontSize: isMobile ? '36px' : '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Get In Touch</h1>
+        <p style={{ fontSize: isMobile ? '15px' : '18px', color: '#64748b' }}>Have a project in mind? We'd love to hear about it.</p>
       </section>
-      <section style={styles.sliderSection}>
-        <ImageSlider images={slides} height="380px" />
+
+      <section style={{ padding: isMobile ? '0 20px' : '0 80px', marginTop: '-30px' }}>
+        <ImageSlider images={slides} height={isMobile ? '220px' : '380px'} />
       </section>
-      <section style={styles.section}>
-        <div style={styles.grid}>
-          <div style={styles.infoCol}>
-            <h2 style={styles.infoTitle}>Let's Build Something Great Together</h2>
-            <p style={styles.infoText}>Whether you have a project in mind or just want to explore possibilities, we're here to help.</p>
-            <div style={styles.infoCards}>
+
+      <section style={{ padding: isMobile ? '60px 20px' : '100px 80px', backgroundColor: bg }}>
+        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1.4fr', gap: '40px', alignItems: 'start' }}>
+          <div>
+            <h2 style={{ fontSize: isMobile ? '24px' : '30px', fontWeight: '800', color: titleColor, marginBottom: '15px' }}>Let's Build Something Great</h2>
+            <p style={{ color: textColor, lineHeight: '1.7', marginBottom: '30px', fontSize: '14px' }}>Whether you have a project in mind or just want to explore possibilities, we're here to help.</p>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
               {[
                 { icon: '📧', label: 'Email', value: 'hello@clarix.com' },
                 { icon: '📞', label: 'Phone', value: '+92 300 1234567' },
                 { icon: '📍', label: 'Location', value: 'Islamabad, Pakistan' },
                 { icon: '⏰', label: 'Hours', value: 'Mon-Fri, 9AM-6PM' }
               ].map((item, i) => (
-                <div key={i} style={styles.infoCard}>
-                  <span style={styles.infoIcon}>{item.icon}</span>
+                <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: cardBg, padding: '16px', borderRadius: '12px', border: `1px solid ${border}` }}>
+                  <span style={{ fontSize: '20px', width: '40px', height: '40px', backgroundColor: 'rgba(99,102,241,0.15)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>{item.icon}</span>
                   <div>
-                    <p style={styles.infoLabel}>{item.label}</p>
-                    <p style={styles.infoValue}>{item.value}</p>
+                    <p style={{ color: textColor, fontSize: '11px', fontWeight: '500', marginBottom: '2px' }}>{item.label}</p>
+                    <p style={{ color: titleColor, fontSize: '13px', fontWeight: '600' }}>{item.value}</p>
                   </div>
                 </div>
               ))}
             </div>
           </div>
-          <div style={styles.formCol}>
-            <h2 style={styles.formTitle}>Send Us a Message</h2>
-            {success && <div style={styles.successMsg}>{success}</div>}
+
+          <div style={{ backgroundColor: cardBg, padding: isMobile ? '25px' : '40px', borderRadius: '20px', border: `1px solid ${border}` }}>
+            <h2 style={{ fontSize: '22px', fontWeight: '800', color: titleColor, marginBottom: '25px' }}>Send Us a Message</h2>
+            {success && <div style={{ backgroundColor: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', padding: '14px', borderRadius: '10px', marginBottom: '20px', fontSize: '13px' }}>{success}</div>}
             <form onSubmit={handleSubmit}>
-              <div style={styles.formRow}>
-                <div style={styles.formGroup}>
-                  <label style={styles.label}>Your Name</label>
-                  <input style={styles.input} placeholder="John Doe" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
+              <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : '1fr 1fr', gap: '14px', marginBottom: '14px' }}>
+                <div>
+                  <label style={{ color: textColor, fontSize: '12px', fontWeight: '600', marginBottom: '6px', display: 'block' }}>Your Name</label>
+                  <input style={{ width: '100%', padding: '12px 14px', backgroundColor: inputBg, border: `1px solid ${border}`, borderRadius: '10px', color: titleColor, fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} placeholder="John Doe" value={form.name} onChange={e => setForm({ ...form, name: e.target.value })} required />
                 </div>
-                <div style={styles.formGroup}>
-                  <label style={styles.label}>Email Address</label>
-                  <input style={styles.input} type="email" placeholder="john@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
+                <div>
+                  <label style={{ color: textColor, fontSize: '12px', fontWeight: '600', marginBottom: '6px', display: 'block' }}>Email Address</label>
+                  <input style={{ width: '100%', padding: '12px 14px', backgroundColor: inputBg, border: `1px solid ${border}`, borderRadius: '10px', color: titleColor, fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} type="email" placeholder="john@example.com" value={form.email} onChange={e => setForm({ ...form, email: e.target.value })} required />
                 </div>
               </div>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Phone Number</label>
-                <input style={styles.input} placeholder="+92 300 0000000" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
+              <div style={{ marginBottom: '14px' }}>
+                <label style={{ color: textColor, fontSize: '12px', fontWeight: '600', marginBottom: '6px', display: 'block' }}>Phone Number</label>
+                <input style={{ width: '100%', padding: '12px 14px', backgroundColor: inputBg, border: `1px solid ${border}`, borderRadius: '10px', color: titleColor, fontSize: '14px', outline: 'none', boxSizing: 'border-box' }} placeholder="+92 300 0000000" value={form.phone} onChange={e => setForm({ ...form, phone: e.target.value })} />
               </div>
-              <div style={styles.formGroup}>
-                <label style={styles.label}>Your Message</label>
-                <textarea style={styles.textarea} placeholder="Tell us about your project..." rows="5" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required />
+              <div style={{ marginBottom: '20px' }}>
+                <label style={{ color: textColor, fontSize: '12px', fontWeight: '600', marginBottom: '6px', display: 'block' }}>Your Message</label>
+                <textarea style={{ width: '100%', padding: '12px 14px', backgroundColor: inputBg, border: `1px solid ${border}`, borderRadius: '10px', color: titleColor, fontSize: '14px', outline: 'none', boxSizing: 'border-box', resize: 'vertical' }} placeholder="Tell us about your project..." rows="5" value={form.message} onChange={e => setForm({ ...form, message: e.target.value })} required />
               </div>
-              <button type="submit" style={styles.btn} disabled={loading}>
+              <button type="submit" style={{ width: '100%', padding: '14px', background: 'linear-gradient(135deg, #6366f1, #4f46e5)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: '600', cursor: 'pointer' }} disabled={loading}>
                 {loading ? 'Sending...' : 'Send Message →'}
               </button>
             </form>
           </div>
         </div>
       </section>
+
       <Footer />
     </div>
   );
 }
 
 const styles = {
-  hero: { background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: '120px 80px 80px', textAlign: 'center', borderBottom: '1px solid rgba(255,255,255,0.05)' },
-  tag: { color: '#6366f1', fontWeight: '700', fontSize: '12px', letterSpacing: '3px', marginBottom: '15px', display: 'block' },
-  heroTitle: { fontSize: '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' },
-  heroSubtitle: { fontSize: '18px', color: '#64748b' },
-  sliderSection: { padding: '0 80px', marginTop: '-30px' },
-  section: { padding: '100px 80px', backgroundColor: '#080c14' },
-  grid: { display: 'grid', gridTemplateColumns: '1fr 1.4fr', gap: '60px', alignItems: 'start' },
-  infoCol: {},
-  infoTitle: { fontSize: '30px', fontWeight: '800', color: 'white', marginBottom: '15px', letterSpacing: '-0.5px' },
-  infoText: { color: '#64748b', lineHeight: '1.7', marginBottom: '35px', fontSize: '15px' },
-  infoCards: { display: 'flex', flexDirection: 'column', gap: '15px' },
-  infoCard: { display: 'flex', alignItems: 'center', gap: '15px', backgroundColor: '#0f172a', padding: '20px', borderRadius: '12px', border: '1px solid rgba(255,255,255,0.06)' },
-  infoIcon: { fontSize: '24px', width: '45px', height: '45px', backgroundColor: 'rgba(99,102,241,0.15)', borderRadius: '10px', display: 'flex', alignItems: 'center', justifyContent: 'center' },
-  infoLabel: { color: '#64748b', fontSize: '12px', fontWeight: '500', marginBottom: '3px' },
-  infoValue: { color: 'white', fontSize: '14px', fontWeight: '600' },
-  formCol: { backgroundColor: '#0f172a', padding: '40px', borderRadius: '20px', border: '1px solid rgba(255,255,255,0.06)' },
-  formTitle: { fontSize: '24px', fontWeight: '800', color: 'white', marginBottom: '25px' },
-  successMsg: { backgroundColor: 'rgba(16,185,129,0.15)', border: '1px solid rgba(16,185,129,0.3)', color: '#10b981', padding: '15px', borderRadius: '10px', marginBottom: '20px', fontSize: '14px' },
-  formRow: { display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px' },
-  formGroup: { marginBottom: '20px' },
-  label: { color: '#94a3b8', fontSize: '13px', fontWeight: '600', marginBottom: '8px', display: 'block', letterSpacing: '0.5px' },
-  input: { width: '100%', padding: '12px 16px', backgroundColor: '#080c14', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', color: 'white', fontSize: '14px', outline: 'none', boxSizing: 'border-box' },
-  textarea: { width: '100%', padding: '12px 16px', backgroundColor: '#080c14', border: '1px solid rgba(255,255,255,0.08)', borderRadius: '10px', color: 'white', fontSize: '14px', outline: 'none', boxSizing: 'border-box', resize: 'vertical' },
-  btn: { width: '100%', padding: '14px', background: 'linear-gradient(135deg, #6366f1, #4f46e5)', color: 'white', border: 'none', borderRadius: '10px', fontSize: '15px', fontWeight: '600', cursor: 'pointer', boxShadow: '0 4px 15px rgba(99,102,241,0.3)' }
+  tag: { color: '#6366f1', fontWeight: '700', fontSize: '12px', letterSpacing: '3px', marginBottom: '15px', display: 'block' }
 };
 
 export default Contact;
