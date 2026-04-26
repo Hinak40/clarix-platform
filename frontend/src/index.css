@@ -68,3 +68,27 @@ body.light {
   z-index: 9999;
   cursor: pointer !important;
 }
+/* Hamburger - desktop pe hide, mobile pe show */
+@media (max-width: 768px) {
+  .desktop-links-hide {
+    display: none !important;
+  }
+  .book-btn-hide {
+    display: none !important;
+  }
+  .hamburger-show {
+    display: block !important;
+  }
+  .mobile-menu-show {
+    display: flex !important;
+  }
+}
+
+@media (min-width: 769px) {
+  .hamburger-show {
+    display: none !important;
+  }
+  .mobile-menu-show {
+    display: none !important;
+  }
+}
