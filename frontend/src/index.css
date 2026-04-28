@@ -1,75 +1,51 @@
+/* frontend/src/index.css */
+
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-* {
-  cursor: default !important;
-  caret-color: transparent;
-}
-
-a, button, [onClick], label, select, input[type="submit"], input[type="button"], input[type="checkbox"], input[type="radio"] {
-  cursor: pointer !important;
-}
-
-input[type="text"], input[type="email"], input[type="password"], input[type="date"], input[type="time"], input[type="number"], textarea {
-  cursor: text !important;
-  caret-color: auto;
-}
+/* 1. Global Reset & Fixes */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  cursor: default !important;
-}
-
-a, button, [role="button"], input[type="submit"] {
-  cursor: pointer !important;
-}
-
-input, textarea, select {
-  cursor: text !important;
-}
-
-body {
   font-family: 'Plus Jakarta Sans', sans-serif;
-  background-color: #080c14;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* Ye horizontal scroll ko khatam karta hai */
+  background-color: #080c14; /* Dark background as default */
   color: #e2e8f0;
+  scroll-behavior: smooth;
+}
+
+#root {
+  width: 100%;
   overflow-x: hidden;
 }
 
-a { transition: all 0.3s ease; }
-button { transition: all 0.3s ease; }
+/* 2. Custom Cursor (Optional but kept as per your original file) */
+* {
+  cursor: default !important;
+}
 
-::-webkit-scrollbar { width: 5px; }
-::-webkit-scrollbar-track { background: #0f172a; }
-::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
-::selection { background: #6366f1; color: white; }
+a, button, [onClick], label, select, input[type="submit"] {
+  cursor: pointer !important;
+}
 
-/* Dark/Light Mode */
+input, textarea {
+  cursor: text !important;
+  caret-color: auto;
+}
+
+/* 3. Theme Mode Logic (Keep as is for your Dark/Light toggle) */
 body.light {
   background-color: #f8fafc;
   color: #0f172a;
 }
 
-/* Theme Toggle Button */
-.theme-toggle {
-  position: fixed;
-  bottom: 30px;
-  right: 30px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #4f46e5);
-  border: none;
-  color: white;
-  font-size: 20px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 4px 20px rgba(99,102,241,0.4);
-  z-index: 9999;
-  cursor: pointer !important;
-}
-/* Hamburger - desktop pe hide, mobile pe show */
-@media (max-width: 768px) {
+/* 4. Navbar Responsive Classes (VERY IMPORTANT) */
+/* Ye desktop links ko mobile par hide karne ke liye hain */
+@media (max-width: 850px) {
   .desktop-links-hide {
     display: none !important;
   }
@@ -84,11 +60,81 @@ body.light {
   }
 }
 
-@media (min-width: 769px) {
+@media (min-width: 851px) {
   .hamburger-show {
     display: none !important;
   }
   .mobile-menu-show {
     display: none !important;
   }
+}
+
+/* 5. Admin Panel Fixes (Sidebar Stacking) */
+@media (max-width: 992px) {
+  /* Admin layout row se column ho jayegi */
+  .admin-container {
+    flex-direction: column !important;
+  }
+  .admin-sidebar {
+    width: 100% !important;
+    height: auto !important;
+    position: relative !important;
+    padding: 20px !important;
+    border-right: none !important;
+    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
+  }
+  .admin-main {
+    padding: 20px !important;
+    width: 100% !important;
+  }
+  /* Stats grid stack ho jayegi */
+  .admin-stats-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 10px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .admin-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* 6. Footer & Generic Grid Fixes */
+@media (max-width: 768px) {
+  /* Footer links center align ho jayenge choti screen par */
+  footer {
+    padding: 40px 20px !important;
+    text-align: left;
+  }
+  
+  /* Images ko overflow hone se rokna */
+  img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Section headings smaller on mobile */
+  h1 { font-size: 32px !important; }
+  h2 { font-size: 26px !important; }
+}
+
+/* 7. Scrollbar Customization */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #6366f1;
+  border-radius: 10px;
+}
+
+/* 8. Utility Classes */
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
 }
