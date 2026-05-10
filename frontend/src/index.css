@@ -1,140 +1,252 @@
-/* frontend/src/index.css */
-
 @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 
-/* 1. Global Reset & Fixes */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Plus Jakarta Sans', sans-serif;
-}
-
-html, body {
-  width: 100%;
-  overflow-x: hidden; /* Ye horizontal scroll ko khatam karta hai */
-  background-color: #080c14; /* Dark background as default */
-  color: #e2e8f0;
-  scroll-behavior: smooth;
-}
-
-#root {
-  width: 100%;
-  overflow-x: hidden;
-}
-
-/* 2. Custom Cursor (Optional but kept as per your original file) */
-* {
   cursor: default !important;
 }
 
-a, button, [onClick], label, select, input[type="submit"] {
+a, button, [onClick], label, select {
   cursor: pointer !important;
 }
 
 input, textarea {
   cursor: text !important;
-  caret-color: auto;
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }
 
-/* 3. Theme Mode Logic (Keep as is for your Dark/Light toggle) */
+body {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  background-color: #080c14;
+  color: #e2e8f0;
+  overflow-x: hidden;
+}
+
+a { transition: all 0.3s ease; }
+button { transition: all 0.3s ease; }
+
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #0f172a; }
+::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+::selection { background: #6366f1; color: white; }
+
 body.light {
   background-color: #f8fafc;
   color: #0f172a;
 }
 
-/* 4. Navbar Responsive Classes (VERY IMPORTANT) */
-/* Ye desktop links ko mobile par hide karne ke liye hain */
-@media (max-width: 850px) {
-  .desktop-links-hide {
-    display: none !important;
+/* ===== RESPONSIVE ===== */
+
+/* Navbar */
+@media (max-width: 768px) {
+  .desktop-links-hide { display: none !important; }
+  .book-btn-hide { display: none !important; }
+  .hamburger-show { display: block !important; }
+}
+
+@media (min-width: 769px) {
+  .hamburger-show { display: none !important; }
+  .mobile-menu-hide { display: none !important; }
+}
+
+/* Hero Section */
+@media (max-width: 768px) {
+  .hero-section {
+    min-height: 60vh !important;
+    padding: 40px 20px !important;
   }
-  .book-btn-hide {
-    display: none !important;
+  .hero-title {
+    font-size: 28px !important;
+    letter-spacing: -0.5px !important;
   }
-  .hamburger-show {
-    display: block !important;
+  .hero-subtitle {
+    font-size: 14px !important;
   }
-  .mobile-menu-show {
-    display: flex !important;
+  .hero-btns {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+  .hero-btns a {
+    width: 100% !important;
+    text-align: center !important;
   }
 }
 
-@media (min-width: 851px) {
-  .hamburger-show {
-    display: none !important;
+/* Sections padding */
+@media (max-width: 768px) {
+  .section-pad {
+    padding: 50px 16px !important;
   }
-  .mobile-menu-show {
+  .section-title {
+    font-size: 26px !important;
+  }
+  .section-subtitle {
+    font-size: 14px !important;
+  }
+}
+
+/* Grids */
+@media (max-width: 768px) {
+  .grid-2, .grid-3, .grid-4, .grid-5 {
+    grid-template-columns: 1fr !important;
+  }
+  .grid-2-mobile {
+    grid-template-columns: 1fr 1fr !important;
+  }
+}
+
+/* Stats */
+@media (max-width: 768px) {
+  .stats-row {
+    flex-direction: column !important;
+    gap: 10px !important;
+    padding: 30px 16px !important;
+  }
+  .stat-card-item {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+}
+
+/* Why Section */
+@media (max-width: 768px) {
+  .why-section {
+    flex-direction: column !important;
+    gap: 30px !important;
+    padding: 50px 16px !important;
+  }
+  .why-img-hide {
     display: none !important;
   }
 }
 
-/* 5. Admin Panel Fixes (Sidebar Stacking) */
-@media (max-width: 992px) {
-  /* Admin layout row se column ho jayegi */
-  .admin-container {
+/* Portfolio/Blog/Services Cards */
+@media (max-width: 768px) {
+  .cards-grid {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+}
+
+/* Team/Values Grid */
+@media (max-width: 768px) {
+  .team-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+/* Process Grid */
+@media (max-width: 768px) {
+  .process-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 14px !important;
+  }
+}
+
+/* Footer */
+@media (max-width: 768px) {
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 25px !important;
+  }
+  .footer-pad {
+    padding: 50px 20px 25px !important;
+  }
+}
+
+/* Forms */
+@media (max-width: 768px) {
+  .form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .contact-grid {
+    grid-template-columns: 1fr !important;
+    gap: 25px !important;
+  }
+}
+
+/* Slider */
+@media (max-width: 768px) {
+  .slider-section {
+    padding: 0 16px !important;
+  }
+}
+
+/* Admin */
+@media (max-width: 768px) {
+  .admin-layout {
     flex-direction: column !important;
   }
   .admin-sidebar {
     width: 100% !important;
     height: auto !important;
     position: relative !important;
-    padding: 20px !important;
-    border-right: none !important;
-    border-bottom: 1px solid rgba(255,255,255,0.05) !important;
   }
-  .admin-main {
-    padding: 20px !important;
-    width: 100% !important;
-  }
-  /* Stats grid stack ho jayegi */
-  .admin-stats-grid {
+  .admin-stats {
     grid-template-columns: 1fr 1fr !important;
-    gap: 10px !important;
   }
-}
-
-@media (max-width: 600px) {
-  .admin-stats-grid {
+  .admin-actions {
+    grid-template-columns: 1fr 1fr !important;
+  }
+  .admin-info {
     grid-template-columns: 1fr !important;
   }
 }
 
-/* 6. Footer & Generic Grid Fixes */
+/* CTA Section */
 @media (max-width: 768px) {
-  /* Footer links center align ho jayenge choti screen par */
-  footer {
-    padding: 40px 20px !important;
-    text-align: left;
+  .cta-section {
+    padding: 60px 20px !important;
   }
-  
-  /* Images ko overflow hone se rokna */
-  img {
-    max-width: 100%;
-    height: auto;
+  .cta-title {
+    font-size: 28px !important;
   }
-
-  /* Section headings smaller on mobile */
-  h1 { font-size: 32px !important; }
-  h2 { font-size: 26px !important; }
+  .cta-btns {
+    flex-direction: column !important;
+    align-items: center !important;
+  }
+  .cta-btns a {
+    width: 100% !important;
+    text-align: center !important;
+  }
 }
 
-/* 7. Scrollbar Customization */
-::-webkit-scrollbar {
-  width: 6px;
-}
-::-webkit-scrollbar-track {
-  background: #0f172a;
-}
-::-webkit-scrollbar-thumb {
-  background: #6366f1;
-  border-radius: 10px;
+/* Testimonials */
+@media (max-width: 768px) {
+  .testimonials-grid {
+    grid-template-columns: 1fr !important;
+  }
 }
 
-/* 8. Utility Classes */
-.container {
-  width: 100%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
+/* Blog Detail */
+@media (max-width: 768px) {
+  .blog-hero {
+    height: 280px !important;
+    padding: 20px !important;
+  }
+  .blog-title {
+    font-size: 22px !important;
+  }
+  .blog-content {
+    padding: 20px !important;
+  }
+}
+
+/* Time Slots */
+@media (max-width: 768px) {
+  .time-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+/* Misc */
+@media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+  .full-mobile {
+    width: 100% !important;
+  }
 }

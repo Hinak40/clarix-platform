@@ -7,13 +7,9 @@ import { getPortfolio } from '../api/index';
 function Portfolio({ darkMode, setDarkMode }) {
   const [projects, setProjects] = useState([]);
   const [filter, setFilter] = useState('All');
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     getPortfolio().then(res => setProjects(res.data)).catch(() => {});
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const slides = [
@@ -45,17 +41,17 @@ function Portfolio({ darkMode, setDarkMode }) {
     <div style={{ backgroundColor: bg }}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <section style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: isMobile ? '80px 20px 60px' : '120px 80px 80px', textAlign: 'center' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: '120px 80px 80px', textAlign: 'center' }}>
         <span style={styles.tag}>OUR WORK</span>
-        <h1 style={{ fontSize: isMobile ? '36px' : '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Our Portfolio</h1>
-        <p style={{ fontSize: isMobile ? '15px' : '18px', color: '#64748b' }}>Projects we have built for clients worldwide</p>
+        <h1 className="section-title" style={{ fontSize: '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Our Portfolio</h1>
+        <p className="section-subtitle" style={{ fontSize: '18px', color: '#64748b' }}>Projects we have built for clients worldwide</p>
       </section>
 
-      <section style={{ padding: isMobile ? '0 20px' : '0 80px', marginTop: '-30px' }}>
-        <ImageSlider images={slides} height={isMobile ? '250px' : '420px'} />
+      <section className="slider-section" style={{ padding: '0 80px', marginTop: '-30px' }}>
+        <ImageSlider images={slides} height="420px" />
       </section>
 
-      <section style={{ padding: isMobile ? '60px 20px' : '100px 80px', backgroundColor: bg }}>
+      <section className="section-pad" style={{ padding: '100px 80px', backgroundColor: bg }}>
         <div style={{ display: 'flex', gap: '12px', marginBottom: '40px', justifyContent: 'center', flexWrap: 'wrap' }}>
           {categories.map((cat) => (
             <button key={cat} onClick={() => setFilter(cat)} style={{ padding: '10px 24px', borderRadius: '8px', fontSize: '14px', fontWeight: '600', cursor: 'pointer', backgroundColor: filter === cat ? '#6366f1' : cardBg, color: filter === cat ? 'white' : textColor, border: filter === cat ? 'none' : `1px solid ${border}` }}>
@@ -63,7 +59,7 @@ function Portfolio({ darkMode, setDarkMode }) {
             </button>
           ))}
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '22px' }}>
+        <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
           {filtered.map((p) => (
             <div key={p._id} style={{ backgroundColor: cardBg, borderRadius: '16px', overflow: 'hidden', border: `1px solid ${border}` }}>
               <img src={p.img || 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?w=600'} alt={p.title} style={{ width: '100%', height: '200px', objectFit: 'cover', display: 'block' }} />

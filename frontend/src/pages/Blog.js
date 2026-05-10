@@ -8,14 +8,10 @@ import { getBlogs } from '../api/index';
 function Blog({ darkMode, setDarkMode }) {
   const [blogs, setBlogs] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     setLoading(true);
     getBlogs().then(res => setBlogs(res.data)).catch(() => {}).finally(() => setLoading(false));
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const slides = [
@@ -34,6 +30,7 @@ function Blog({ darkMode, setDarkMode }) {
   ];
 
   const displayBlogs = blogs.length > 0 ? blogs : defaultBlogs;
+
   const bg = darkMode ? '#080c14' : '#f8fafc';
   const cardBg = darkMode ? '#0f172a' : 'white';
   const titleColor = darkMode ? 'white' : '#0f172a';
@@ -44,27 +41,27 @@ function Blog({ darkMode, setDarkMode }) {
     <div style={{ backgroundColor: bg }}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <section style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: isMobile ? '80px 20px 60px' : '120px 80px 80px', textAlign: 'center' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: '120px 80px 80px', textAlign: 'center' }}>
         <span style={styles.tag}>OUR BLOG</span>
-        <h1 style={{ fontSize: isMobile ? '36px' : '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Insights & Updates</h1>
-        <p style={{ fontSize: isMobile ? '15px' : '18px', color: '#64748b' }}>Knowledge and insights from our team of experts</p>
+        <h1 className="section-title" style={{ fontSize: '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Insights & Updates</h1>
+        <p className="section-subtitle" style={{ fontSize: '18px', color: '#64748b' }}>Knowledge and insights from our team of experts</p>
       </section>
 
-      <section style={{ padding: isMobile ? '0 20px' : '0 80px', marginTop: '-30px' }}>
-        <ImageSlider images={slides} height={isMobile ? '250px' : '420px'} />
+      <section className="slider-section" style={{ padding: '0 80px', marginTop: '-30px' }}>
+        <ImageSlider images={slides} height="420px" />
       </section>
 
-      <section style={{ padding: isMobile ? '60px 20px' : '100px 80px', backgroundColor: bg }}>
+      <section className="section-pad" style={{ padding: '100px 80px', backgroundColor: bg }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <span style={styles.tag}>LATEST POSTS</span>
-          <h2 style={{ fontSize: isMobile ? '28px' : '38px', fontWeight: '800', color: titleColor }}>Recent Articles</h2>
+          <h2 className="section-title" style={{ fontSize: '38px', fontWeight: '800', color: titleColor }}>Recent Articles</h2>
         </div>
         {loading ? (
           <div style={{ textAlign: 'center', padding: '60px' }}>
             <p style={{ color: '#64748b' }}>Loading articles...</p>
           </div>
         ) : (
-          <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '22px' }}>
+          <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
             {displayBlogs.map((blog) => (
               <div key={blog._id} style={{ backgroundColor: cardBg, borderRadius: '16px', overflow: 'hidden', border: `1px solid ${border}` }}>
                 <div style={{ position: 'relative' }}>

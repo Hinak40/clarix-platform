@@ -6,13 +6,9 @@ import { getServices } from '../api/index';
 
 function Services({ darkMode, setDarkMode }) {
   const [services, setServices] = useState([]);
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
 
   useEffect(() => {
     getServices().then(res => setServices(res.data)).catch(() => {});
-    const handleResize = () => setIsMobile(window.innerWidth <= 768);
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
   const slides = [
@@ -45,22 +41,22 @@ function Services({ darkMode, setDarkMode }) {
     <div style={{ backgroundColor: bg }}>
       <Navbar darkMode={darkMode} setDarkMode={setDarkMode} />
 
-      <section style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: isMobile ? '80px 20px 60px' : '120px 80px 80px', textAlign: 'center' }}>
+      <section className="section-pad" style={{ background: 'linear-gradient(135deg, #080c14 0%, #0f172a 50%, #1a1040 100%)', padding: '120px 80px 80px', textAlign: 'center' }}>
         <span style={styles.tag}>WHAT WE OFFER</span>
-        <h1 style={{ fontSize: isMobile ? '36px' : '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Our Services</h1>
-        <p style={{ fontSize: isMobile ? '15px' : '18px', color: '#64748b' }}>Everything you need to build a powerful digital presence</p>
+        <h1 className="section-title" style={{ fontSize: '56px', fontWeight: '800', color: 'white', marginBottom: '20px', letterSpacing: '-1.5px' }}>Our Services</h1>
+        <p className="section-subtitle" style={{ fontSize: '18px', color: '#64748b' }}>Everything you need to build a powerful digital presence</p>
       </section>
 
-      <section style={{ padding: isMobile ? '0 20px' : '0 80px', marginTop: '-30px' }}>
-        <ImageSlider images={slides} height={isMobile ? '250px' : '420px'} />
+      <section className="slider-section" style={{ padding: '0 80px', marginTop: '-30px' }}>
+        <ImageSlider images={slides} height="420px" />
       </section>
 
-      <section style={{ padding: isMobile ? '60px 20px' : '100px 80px', backgroundColor: bg }}>
+      <section className="section-pad" style={{ padding: '100px 80px', backgroundColor: bg }}>
         <div style={{ textAlign: 'center', marginBottom: '50px' }}>
           <span style={styles.tag}>ALL SERVICES</span>
-          <h2 style={{ fontSize: isMobile ? '28px' : '38px', fontWeight: '800', color: titleColor, letterSpacing: '-1px' }}>What We Do</h2>
+          <h2 className="section-title" style={{ fontSize: '38px', fontWeight: '800', color: titleColor }}>What We Do</h2>
         </div>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr' : 'repeat(3, 1fr)', gap: '22px' }}>
+        <div className="cards-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '22px' }}>
           {displayServices.map((s) => (
             <div key={s._id} style={{ backgroundColor: cardBg, padding: '32px 28px', borderRadius: '16px', border: `1px solid ${border}` }}>
               <div style={{ width: '56px', height: '56px', borderRadius: '14px', backgroundColor: `${s.color || '#6366f1'}15`, display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '18px' }}>
@@ -74,10 +70,10 @@ function Services({ darkMode, setDarkMode }) {
         </div>
       </section>
 
-      <section style={{ padding: isMobile ? '60px 20px' : '100px 80px', backgroundColor: darkMode ? '#0a0f1e' : '#f1f5f9', textAlign: 'center' }}>
+      <section className="section-pad" style={{ padding: '100px 80px', backgroundColor: darkMode ? '#0a0f1e' : '#f1f5f9', textAlign: 'center' }}>
         <span style={{ ...styles.tag, color: '#818cf8' }}>HOW WE WORK</span>
-        <h2 style={{ fontSize: isMobile ? '28px' : '38px', fontWeight: '800', color: titleColor, marginBottom: '40px' }}>Our Process</h2>
-        <div style={{ display: 'grid', gridTemplateColumns: isMobile ? '1fr 1fr' : 'repeat(4, 1fr)', gap: '20px' }}>
+        <h2 className="section-title" style={{ fontSize: '38px', fontWeight: '800', color: titleColor, marginBottom: '40px' }}>Our Process</h2>
+        <div className="process-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '20px' }}>
           {[
             { step: '01', title: 'Discovery', desc: 'We understand your business goals and requirements.' },
             { step: '02', title: 'Planning', desc: 'We create a detailed roadmap and technical architecture.' },
